@@ -125,7 +125,7 @@
 17. Testing and Quality Assurance:
    - The system shall provide rigorous testing procedures to ensure its reliability and correctness.
    >1. 700 to 1,000 NLOCs.
-   >2. One or two team members.
+   >2. Two or three team members.
    >3. 1 to 2 weeks of implementation time.
    >4. Have complience with WCAG.
 
