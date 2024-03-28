@@ -1,0 +1,10 @@
+1,user1,password1,STUDENT,active
+2,user2,password2,ADVISOR,blocked
+3,user3,password3,ADMINISTRATOR,active
+4,user4,password4,STUDENT,blocked
+5,user5,password5,ADVISOR,blocked
+6,user6,password6,ADVISOR,active
+7,user7,password7,STUDENT,active
+8,user8,password8,ADMINISTRATOR,active
+9,user9,password9,ADVISOR,active
+10,user10,password10,ADMINISTRATOR,active

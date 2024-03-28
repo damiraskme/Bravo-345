@@ -11,6 +11,11 @@ public class Session {
     public SessionManager manager;
     private Timer logoutTimer;
 
+    public class StudentAccount {
+            // empty for now
+    }
+    
+
     public Session(Role role, SessionManager manager) {
         this.role = role;
         this.manager = manager;
