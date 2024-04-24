@@ -1,3 +1,5 @@
+package Test;
+
 import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -38,5 +40,16 @@ public class Session {
         public void run() {
             logout();
         }
+    }
+
+    public Role getRole() {
+        return this.role;
+    }
+
+    public boolean isActive() {
+        if (this.manager.sessions.contains(this)) {
+            return true;
+        }
+        return false;
     }
 }
