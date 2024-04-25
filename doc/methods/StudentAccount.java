@@ -1,4 +1,3 @@
-package Test;
 
 import java.util.Map;
 import java.time.Year;
@@ -14,6 +13,48 @@ public class StudentAccount {
     private String status;
     private AcademicHistory history;
     private String phone;
+    private String username;
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getUsername() {
+        return login;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+    
+
 
     StudentAccount() {
         this.dob.put("Year", null);
@@ -68,7 +109,7 @@ public class StudentAccount {
         if(!session.isActive()) {
             throw new ExpiredSessionException("Expired session");
         }
-        else if (!db.checkCredentials(this.login, this.password, this.role) || this.role != Role.ADMINISTRATOR || this.role != Role.FACULTY) {
+        else if (!db.checkCredentials(this.login, this.password, this.role) || this.role != Role.ADMINISTRATOR) {
             throw new AccessViolationException("Access Violation");
         }
         
@@ -79,7 +120,7 @@ public class StudentAccount {
         if(!session.isActive()) {
             throw new ExpiredSessionException("Expired session");
         }
-        else if (!db.checkCredentials(this.login, this.password, this.role) || this.role != Role.ADMINISTRATOR || this.role != Role.FACULTY) {
+        else if (!db.checkCredentials(this.login, this.password, this.role) || this.role != Role.ADMINISTRATOR) {
             throw new AccessViolationException("Access Violation");
         }
         
@@ -106,7 +147,7 @@ public class StudentAccount {
         if(!session.isActive()) {
             throw new ExpiredSessionException("Expired session");
         }
-        else if (!db.checkCredentials(this.login, this.password, this.role) || this.role != Role.ADMINISTRATOR || this.role != Role.FACULTY) {
+        else if (!db.checkCredentials(this.login, this.password, this.role) || this.role != Role.ADMINISTRATOR) {
             throw new AccessViolationException("Access Violation");
         }
         this.history = history;
@@ -131,7 +172,7 @@ public class StudentAccount {
         if(!session.isActive()) {
             throw new ExpiredSessionException("Expired session");
         }
-        else if (!db.checkCredentials(this.login, this.password, this.role) || this.role != Role.ADMINISTRATOR || this.role != Role.FACULTY) {
+        else if (!db.checkCredentials(this.login, this.password, this.role) || this.role != Role.ADMINISTRATOR) {
             throw new AccessViolationException("Access Violation");
         }
         this.id = id;
@@ -142,7 +183,7 @@ public class StudentAccount {
         if(!session.isActive()) {
             throw new ExpiredSessionException("Expired session");
         }
-        else if (!db.checkCredentials(this.login, this.password, this.role) || this.role != Role.ADMINISTRATOR || this.role != Role.FACULTY) {
+        else if (!db.checkCredentials(this.login, this.password, this.role) || this.role != Role.ADMINISTRATOR) {
             throw new AccessViolationException("Access Violation");
         }
         this.login = login;
