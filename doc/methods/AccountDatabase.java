@@ -1,16 +1,13 @@
-package Test;
 
 
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
-
 enum Role {
     ADMINISTRATOR,
     STUDENT,
-    ADVISOR,
-    FACULTY
+    ADVISOR
 }
 
 public class AccountDatabase {
@@ -145,7 +142,7 @@ public class AccountDatabase {
     }
    
 
-    public void changePassword(Session session, StudentAccount account) throws Exception {
+    public void changePassword(StudentAccount account) {
         List<String[]> credentials = new ArrayList<>();
         StringBuilder newFileContent = new StringBuilder();
         try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
@@ -154,13 +151,13 @@ public class AccountDatabase {
                 credentials.add(line.split(","));
             }
             for (int i = 0; i < credentials.size(); i++) {
-                if (credentials.get(i)[0].equals(String.valueOf(account.getId(session)))) {
+                if (credentials.get(i)[0].equals(String.valueOf(account.getId()))) {
                     credentials.set(i, new String[]{
-                            String.valueOf(account.getId(session)),
-                            account.getLogin(session),
-                            account.getPass(session),
-                            account.getRole(session).toString(),
-                            account.getStatus(session)
+                            String.valueOf(account.getId()),
+                            account.getUsername(),
+                            account.getPassword(),
+                            account.getRole().toString(),
+                            account.getStatus()
                     });
                 }
             }
@@ -185,7 +182,7 @@ public class AccountDatabase {
    
     
    
-    public StudentAccount createAccount(Session session, String loginName, String password) throws DuplicateRecordException, AccessViolationException, ExpiredSessionException {
+    public void createAccount(Session session, String loginName, String password) throws DuplicateRecordException, AccessViolationException, ExpiredSessionException {
         if (session == null || !session.isActive()) {
             throw new ExpiredSessionException("Session has expired.");
         }
@@ -234,7 +231,6 @@ public class AccountDatabase {
         } catch (IOException e) {
             System.err.println("An error occurred while writing to the accounts file.");
         }
-        return new StudentAccount(loginName, password);
     }
 
     private boolean checkIfLoginNameExists(String loginName) {
@@ -278,11 +274,11 @@ public class AccountDatabase {
             return;
         }
     
-        if (session.getRole() == Role.STUDENT) {
-            if (session.isActive()) {
-                Session.StudentAccount account = session.studentAcc;
+        if (session.role == Role.STUDENT) {
+            if (session.studentAcc != null) {
+                Session.StudentAccount studentAccount = session.studentAcc;
                 System.out.println("Student Account Details:");
-                System.out.println("ID: " + studentAccount.getId(session));
+                System.out.println("ID: " + studentAccount.getId());
                 System.out.println("Username: " + studentAccount.getUsername());
                 System.out.println("Password: " + studentAccount.getPassword());
                 System.out.println("Role: " + studentAccount.getRole());
@@ -295,7 +291,7 @@ public class AccountDatabase {
             System.out.println("Error: Invalid account role.");
         }
     }
-    public boolean passwordCheck(String password) {
+    public static boolean passwordCheck(String password) {
         // Password requirements:
         // 1. Should have at least 8 characters
         // 2. Should contain at least one uppercase letter
@@ -363,7 +359,7 @@ public class AccountDatabase {
     
             for (int i = 0; i < credentials.size(); i++) {
                 String[] credential = credentials.get(i);
-                if (credential.length >= 2 && credential[1].trim().equals((session.getLogin()))) {
+                if (credential.length >= 2 && credential[1].trim().equals((session.getUsername()))) {
                     credential[1] = newLoginName; // Update the login name
                     credentials.set(i, credential);
                 }
